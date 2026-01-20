@@ -3,14 +3,6 @@
 A simple and beautiful weather application built with **.NET MAUI**.
 Check current weather conditions and save your favorite cities locally.
 
-## 📱 Screenshots
-
-<p align="center">
-  <img src="Screenshots/CityList.png" width="250" alt="City List" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="Screenshots/WeatherDetails.png" width="250" alt="Weather Details" />
-</p>
-
 ## 🚀 Features
 
 * **Search Cities**: Real-time search for any city in the world using WeatherAPI.
