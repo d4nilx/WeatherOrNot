@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:WeatherOrNot.View_Models"
+             x:Class="WeatherOrNot.CityListPage"
+             x:Name="MyCityPage"
+             BackgroundColor="Black"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, *">
+        
+        <VerticalStackLayout Grid.Row="0" Padding="20" Spacing="10">
+            <Label Text="WeatherOrNot" FontSize="36" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+            
+            <SearchBar Placeholder="Search for a city" 
+                       PlaceholderColor="#999"
+                       TextColor="White"
+                       BackgroundColor="#1C1C1E"
+                       Text="{Binding SearchText}"  
+                       SearchCommand="{Binding PerformSearchCommand}"/>
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding SavedCities}" SelectionMode="Single"
+                        SelectionChangedCommand="{Binding OpenCityCommand}"
+                        SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    
+                    <SwipeView>
+                        
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="#FF3B30"
+                                           Command="{Binding BindingContext.DeleteCityCommand, Source={x:Reference MyCityPage}}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Grid Padding="20,10">
+                            <Frame CornerRadius="20" HeightRequest="100" Padding="0" BorderColor="Transparent" IsClippedToBounds="True">
+                                <Grid>
+                                    <Grid.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#2980B9" Offset="0.0"/>
+                                            <GradientStop Color="#6DD5FA" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+
+                                    <Grid ColumnDefinitions="*, Auto" Padding="20">
+                                        <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+                                            <Label Text="{Binding Location.Name}" FontSize="24" FontAttributes="Bold" TextColor="White"/>
+                                            <Label Text="{Binding Location.LocalTime}" FontSize="14" TextColor="#EEE"/>
+                                            <Label Text="{Binding Current.Condition.Text}" FontSize="14" TextColor="White" Margin="0,15,0,0"/>
+                                        </VerticalStackLayout>
+
+                                        <Label Grid.Column="1" 
+                                               Text="{Binding Current.Temp_C, StringFormat='{0:F0}°'}" 
+                                               FontSize="40" TextColor="White" VerticalOptions="Start"/>
+                                    </Grid>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
